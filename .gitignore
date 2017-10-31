@@ -3,3 +3,6 @@
 ################################################################################
 
 *.nupkg
+/ChiKien276.AspNetCore.MultipartHelper/bin/Debug/netcoreapp2.0
+/ChiKien276.AspNetCore.MultipartHelper/obj
+/.vs/ChiKien276.AspNetCore.MultipartHelper/v15

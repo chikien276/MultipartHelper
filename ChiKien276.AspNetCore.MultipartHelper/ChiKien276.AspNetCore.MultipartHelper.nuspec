@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>ChiKien276.AspNetCore.MultipartHelper</id>
+    <version>0.0.2</version>
+    <title>Multi-part file upload helper for AspNetCore</title>
+    <authors>chikien276</authors>
+    <owners>chikien276</owners>
     <licenseUrl>https://github.com/chikien276/MultipartHelper/blob/master/LICENSE.txt</licenseUrl>
     <projectUrl>https://github.com/chikien276/MultipartHelper</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Utility helps handle uploading large file as well as parse form mapping</description>
+    <releaseNotes>Initiation</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>fileupload multipart aspnetcore helper</tags>
   </metadata>

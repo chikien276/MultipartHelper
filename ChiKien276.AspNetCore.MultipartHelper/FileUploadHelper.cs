@@ -145,6 +145,7 @@ namespace ChiKien276.AspNetCore.MultipartHelper
         }
 
     }
+
     public class MultipartFileInfo
     {
         public long Length { get; set; }
@@ -156,6 +157,6 @@ namespace ChiKien276.AspNetCore.MultipartHelper
 
     public class LocalMultipartFileInfo : MultipartFileInfo
     {
-        public string TemporaryLocaltion { get; set; }
+        public string TemporaryLocation { get; set; }
     }
 }

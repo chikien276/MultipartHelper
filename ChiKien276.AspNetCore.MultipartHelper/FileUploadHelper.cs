@@ -106,7 +106,7 @@ namespace ChiKien276.AspNetCore.MultipartHelper
                     Name = formFile.Name,
                     Length = formFile.Length,
                     FileName = formFile.FileName,
-                    TemporaryLocaltion = targetFilePath,
+                    TemporaryLocation = targetFilePath,
                 };
 
                 files.Add(tFormFile);

@@ -145,6 +145,7 @@ namespace ChiKien276.AspNetCore.MultipartHelper
         }
 
     }
+
     public class MultipartFileInfo
     {
         public long Length { get; set; }

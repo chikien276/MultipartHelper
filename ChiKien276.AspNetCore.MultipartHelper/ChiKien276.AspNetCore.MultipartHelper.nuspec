@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>ChiKien276.AspNetCore.MultipartHelper</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>Multi-part file upload helper for AspNetCore</title>
     <authors>chikien276</authors>
     <owners>chikien276</owners>

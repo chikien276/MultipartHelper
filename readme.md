@@ -1,10 +1,22 @@
 # Usage
+At first, you have to verify that is a multipart request
+```
+if (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))
+{
+    return BadRequest();
+}
+```
 ## Use temporary folder
+
+Uploaded files is temporarily saved in folder `/Your/Temporary/Folder` at `LocalMultipartFileInfo.TemporaryLocaltion`. `LocalMultipartFileInfo` also contains `Length`, `FileName` and `Name` of multipart file.
+
 ```
 [HttpPost("Upload")]
 [DisableFormValueModelBinding]
 public async Task<IActionResult> Upload()
 {
+    ...
+    
     Dictionary<string, StringValues> forms;
     List<LocalMultipartFileInfo> files;
 
@@ -25,6 +37,7 @@ public async Task<IActionResult> Upload()
         return BadRequest();
     }
     
+    ...
 }
 ```
 ## Handle file stream yourself
@@ -34,9 +47,11 @@ public async Task<IActionResult> Upload()
 [DisableFormValueModelBinding]
 public async Task<IActionResult> Upload()
 {
+    ...
+    
     Dictionary<string, StringValues> forms;
 
-    (forms, files) = await FileUploadHelper.ParseRequest(Request, (section, formFile) =>
+    (forms, files) = await FileUploadHelper.ParseRequest(Request, (section, formFileInfo) =>
     {        
         using (var fileStream = File.Create("/Path/To/File"))
         {
@@ -59,6 +74,8 @@ public async Task<IActionResult> Upload()
         
         return BadRequest();
     }
+    
+    ...
     
 }
 ```

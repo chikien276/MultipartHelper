@@ -1,29 +1,62 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
 namespace ChiKien276.AspNetCore.MultipartHelper
 {
-    public class FileUploadHelper
+    public static class FileUploadHelper
     {
         private static readonly int BONDARY_LENGTH_LIMIT = 1024;
 
         private static readonly int BUFFER_SIZE = 81920;
 
+        public static async Task<T> ParseRequestForm<T>(
+            this Controller controller, string tempFolder, T model) where T : class
+        {
+            (var forms, var files) = await ParseRequest(controller.Request, tempFolder);
+            await UpdateAndValidateForm(controller, model, forms);
+            return model;
+        }
+
+        public static async Task<T> ParseRequestForm<T>(
+            this Controller controller, 
+                Func<MultipartSection, MultipartFileInfo, Task> fileHandler,
+                    T model) 
+            where T : class
+        {
+            var forms = await ParseRequest(controller.Request, fileHandler);
+            await UpdateAndValidateForm(controller, model, forms);
+            return model;
+        }
+
+        private static async Task UpdateAndValidateForm<T>(Controller controller, T model, Dictionary<string, StringValues> forms) where T : class
+        {
+            var formValueProvider = new FormValueProvider(BindingSource.Form,
+                                new FormCollection(forms), CultureInfo.CurrentCulture);
+
+            var bindingSuccessful = await controller.TryUpdateModelAsync(model, prefix: "",
+                valueProvider: formValueProvider);
+
+            controller.TryValidateModel(model);
+        }
+
         public static async
             Task<(Dictionary<string, StringValues> forms, List<LocalMultipartFileInfo> files)>
-                ParseRequest(HttpRequest request, string tempLoc)
+                ParseRequest(HttpRequest request, string tempFolder)
         {
-            if (tempLoc == null)
+            if (tempFolder == null)
             {
                 throw new ApplicationException("Request is not a multipart request");
             }
-            return await ParseRequest(request, tempLoc);
+            return await ParseRequest(request, tempFolder);
         }
 
         public static async

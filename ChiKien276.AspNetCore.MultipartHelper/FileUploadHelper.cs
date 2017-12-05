@@ -18,12 +18,12 @@ namespace ChiKien276.AspNetCore.MultipartHelper
 
         private static readonly int BUFFER_SIZE = 81920;
 
-        public static async Task<T> ParseRequestForm<T>(
+        public static async Task<(T model, List<LocalMultipartFileInfo> file)> ParseRequestForm<T>(
             this Controller controller, string tempFolder, T model) where T : class
         {
             (var forms, var files) = await ParseRequest(controller.Request, tempFolder);
             await UpdateAndValidateForm(controller, model, forms);
-            return model;
+            return (model, files);
         }
 
         public static async Task<T> ParseRequestForm<T>(

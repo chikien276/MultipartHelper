@@ -51,13 +51,12 @@ public async Task<IActionResult> Upload()
     
     Dictionary<string, StringValues> forms;
 
-    (forms, files) = await FileUploadHelper.ParseRequest(Request, (section, formFileInfo) =>
-    {        
-        using (var fileStream = File.Create("/Path/To/File"))
+    forms = await FileUploadHelper.ParseRequest(Request, async (section, formFileInfo) =>
+    {
+        using (var fileStream = System.IO.File.Create($"/Path/To/File/{Guid.NewGuid().ToString()}"))
         {
-            section.Body.CopyTo(fileStream);
+            await section.Body.CopyToAsync(fileStream);
         }
-        return Task.CompletedTask;
     });
  
     var formValueProvider = new FormValueProvider(BindingSource.Form, new FormCollection(forms), CultureInfo.CurrentCulture);

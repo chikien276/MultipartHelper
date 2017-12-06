@@ -6,3 +6,6 @@
 /ChiKien276.AspNetCore.MultipartHelper/bin/Debug/netcoreapp2.0
 /ChiKien276.AspNetCore.MultipartHelper/obj
 /.vs/ChiKien276.AspNetCore.MultipartHelper/v15
+/ChiKien276.AspNetCore.MultipartHelper/bin/Release/netcoreapp2.0/ChiKien276.AspNetCore.MultipartHelper.pdb
+/ChiKien276.AspNetCore.MultipartHelper/bin/Release/netcoreapp2.0/ChiKien276.AspNetCore.MultipartHelper.deps.json
+/ChiKien276.AspNetCore.MultipartHelper/bin/Release/netcoreapp2.0/ChiKien276.AspNetCore.MultipartHelper.dll

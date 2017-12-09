@@ -56,7 +56,7 @@ namespace ChiKien276.AspNetCore.MultipartHelper
             {
                 throw new ApplicationException("Request is not a multipart request");
             }
-            return await ParseRequest(request, tempFolder);
+            return await ParseRequest(request, tempFolder, null);
         }
 
         public static async

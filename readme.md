@@ -17,21 +17,17 @@ public async Task<IActionResult> Upload()
 {
     ...
     
-    Dictionary<string, StringValues> forms;
-    List<LocalMultipartFileInfo> files;
+    //List<LocalMultipartFileInfo> files;
+    
+    (var model, var files) = await FileUploadHelper
+                    .ParseRequestForm(this, "/Your/Temporary/Folder", new YourModel());
 
-    (forms, files) = await FileUploadHelper.ParseRequest(Request, "/Your/Temporary/Folder");
- 
-    var formValueProvider = new FormValueProvider(BindingSource.Form, new FormCollection(forms), CultureInfo.CurrentCulture);
-    YourModel model = new YourModel();
-    var formValueProvider = new FormValueProvider(BindingSource.Form,
-                    new FormCollection(forms), CultureInfo.CurrentCulture);
-
-    if (!bindingSuccessful || !ModelState.IsValid)
+    if (!ModelState.IsValid)
     {
         foreach(var file in files)
         {
             // Delete files here
+            System.IO.File.Delete(file.TemporaryLocation);
         }
         
         return BadRequest();
@@ -49,26 +45,21 @@ public async Task<IActionResult> Upload()
 {
     ...
     
-    Dictionary<string, StringValues> forms;
-
-    forms = await FileUploadHelper.ParseRequest(Request, async (section, formFileInfo) =>
+    var model2 = await FileUploadHelper.ParseRequestForm(this, async (section, formFileInfo) =>
     {
-        using (var fileStream = System.IO.File.Create($"/Path/To/File/{Guid.NewGuid().ToString()}"))
+        // This function will be called every time parser got a file 
+        using (var fileStream = System.IO.File.Create($"/Path/To/{Guid.NewGuid().ToString()}"))
         {
             await section.Body.CopyToAsync(fileStream);
         }
-    });
- 
-    var formValueProvider = new FormValueProvider(BindingSource.Form, new FormCollection(forms), CultureInfo.CurrentCulture);
-    YourModel model = new YourModel();
-    var formValueProvider = new FormValueProvider(BindingSource.Form,
-                    new FormCollection(forms), CultureInfo.CurrentCulture);
+    }, new StreamUpload());
 
-    if (!bindingSuccessful || !ModelState.IsValid)
+    if (!ModelState.IsValid)
     {
         foreach(var file in files)
         {
             // Delete files here
+            System.IO.File.Delete(file.TemporaryLocation);
         }
         
         return BadRequest();
@@ -78,3 +69,6 @@ public async Task<IActionResult> Upload()
     
 }
 ```
+# TODO
+* Make it a custorm parser instead of extension method
+* I haven't wrote any UnitTest at all so the goal is near 100% unit test coverage 

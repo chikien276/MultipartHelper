@@ -71,4 +71,4 @@ public async Task<IActionResult> Upload()
 ```
 # TODO
 * Make it a custorm parser instead of extension method
-* I haven't wrote any UnitTest at all so the goal is near 100% unit test coverage 
+* I haven't wrote any UnitTest at all

@@ -1,3 +1,8 @@
+# Install
+```
+Install-Package ChiKien276.AspNetCore.MultipartHelper -Version 0.0.6 
+```
+
 # Usage
 At first, you have to verify that is a multipart request
 ```

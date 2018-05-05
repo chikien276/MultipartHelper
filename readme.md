@@ -1,6 +1,6 @@
 # Install
 ```
-Install-Package ChiKien276.AspNetCore.MultipartHelper -Version 0.0.6 
+PM> Install-Package ChiKien276.AspNetCore.MultipartHelper -Version 0.0.6 
 ```
 
 # Usage
